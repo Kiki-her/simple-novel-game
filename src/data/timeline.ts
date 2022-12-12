@@ -22,7 +22,7 @@ export const timelineData: Timelines = {
     {type: 'choice', choices: [
       {text: 'はい', timelineID: 'choice01_a01'},
       {text: 'いいえ', timelineID: 'choice01_a02'},
-      {text: '知らないアンドロイドについて行ってはいけないと言われているので...', timelineID: 'choice01_a03'}
+      {text: '知らないアンドロイドにはついていけないので...', timelineID: 'choice01_a03'}
     ]}
   ],
   choice01_a01: [
