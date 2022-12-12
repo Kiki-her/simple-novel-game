@@ -22,7 +22,7 @@ export const timelineData: Timelines = {
     {type: 'choice', choices: [
       {text: 'はい', timelineID: 'choice01_a01'},
       {text: 'いいえ', timelineID: 'choice01_a02'},
-      {text: 'アンドロイド風情が話しかけるな', timelineID: 'choice01_a03'}
+      {text: '知らないアンドロイドについて行ってはいけないと言われているので...', timelineID: 'choice01_a03'}
     ]}
   ],
   choice01_a01: [
@@ -31,7 +31,7 @@ export const timelineData: Timelines = {
     {type: 'dialog', text: '事情はつかめないけどとりあえず従っておこう ▼'},
     {type: 'dialog', text: 'よろしい。ではこちらへ来てください ▼', actorName: 'ACT-42'},
     {type: 'clearForeground'},
-    {type: 'dialog', text: 'こうして銀河を股にかけた物語が始まるのであった・・・ ▼'},
+    {type: 'dialog', text: 'こうして瀬戸内海を股にかけた物語が始まるのであった・・・ ▼'},
     {type: 'sceneTransition', key: 'ending'}
   ],
   choice01_a02: [
@@ -50,7 +50,7 @@ export const timelineData: Timelines = {
     {type: 'dialog', text: 'わかりました。それでは私はこれで ▼', actorName: 'ACT-42'},
     {type: 'clearForeground'},
     {type: 'dialog', text: '・・・・・・ ▼'},
-    {type: 'dialog', text: 'この後俺は謎の組織に捕まり色々されてしまうのだった・・・ ▼'},
+    {type: 'dialog', text: 'この後ぼくは道端で商売を始めてなんだかんだ暮らしていくのであった・・・ ▼'},
     {type: 'sceneTransition', key: 'ending'}
   ]
 }
