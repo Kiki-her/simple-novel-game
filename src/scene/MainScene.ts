@@ -1,22 +1,42 @@
-import { DialogBox, DialogBoxConfig } from '../class/DialogBox';  // 追加
+import { DialogBox, DialogBoxConfig } from '../class/DialogBox';
+import { TimelinePlayer } from '../class/TimelinePlayer';
+import { Timeline } from '../type/Timeline';
+import { timelineData } from '../data/timeline';
 
 export class MainScene extends Phaser.Scene {
+  private timeline?: Timeline;
+
   constructor() {
     super('main');
   }
 
+  init(data: any) {
+    // this.scene.restart()の第1引数もしくは
+    // this.scene.start()の第2引数に指定されたオブジェクトがdataに渡される
+    const timelineID = data.timelineID || 'start';
+
+    if (!(timelineID in timelineData)) {
+      console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
+      // 登録されていないタイムラインIDが指定されていたらタイトルシーンに遷移する
+      this.scene.start('title');
+      return;
+    }
+
+    this.timeline = timelineData[timelineID];
+  }
+
   create() {
+    if (!this.timeline) {
+      return;
+    }
+
     const { width, height } = this.game.canvas;
 
-    this.add.image(width/2, height/2, 'street');
-
-    // フォントの設定
     const textStyle: Phaser.Types.GameObjects.Text.TextStyle = {
       fontFamily: '"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
       fontSize: '24px'
     };
 
-    // DialogBoxのコンフィグ
     const dialogBoxHeight = 150;
     const dialogBoxMargin = 10;
     const dialogBoxConfig: DialogBoxConfig = {
@@ -29,22 +49,12 @@ export class MainScene extends Phaser.Scene {
       textStyle: textStyle
     };
 
-    // DialogBoxの作成
-    const dialogBox = new DialogBox(this, dialogBoxConfig);
+    const dialoxBox = new DialogBox(this, dialogBoxConfig);
 
-    // テキストの設定
-    dialogBox.setText('クリックでエンディングへ ▼');
-    dialogBox.setActorNameText('NAME');
+    // タイムラインプレイヤーの作成
+    const timelinePlayer = new TimelinePlayer(this, dialoxBox, textStyle);
 
-    // DialogBoxの表示
-    this.add.existing(dialogBox);
-
-    const zone = this.add.zone(width/2, height/2, width, height);
-    zone.setInteractive({
-      useHandCursor: true
-    });
-    zone.on('pointerdown', () => {
-      this.scene.start('ending');  // EndingSceneに遷移
-    });
+    // タイムラインの再生開始
+    timelinePlayer.start(this.timeline);
   }
 }
